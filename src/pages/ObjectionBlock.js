@@ -27,15 +27,14 @@ export default function ObjectionBlock() {
     );
   }
 
-  if (loading) return <div className="loading">Loading data...</div>;
+  if (loading) return <div className="loading">Loading...</div>;
 
   return (
     <div className="block-page">
       <div className="block-page-header">
-        <div className="block-page-number">04</div>
         <h1 className="block-page-title">Objection & Rebuttal Bank</h1>
         <p className="block-page-subtitle">
-          What will people say against this, and what's the best response for the room you're in?
+          What will people say against this, and what's the best response?
         </p>
       </div>
 
@@ -43,6 +42,7 @@ export default function ObjectionBlock() {
         <BlockSidebar />
         <div className="block-main">
           <div className="block-content">
+
             <div className="audience-toggle">
               {['organizer', 'staffer', 'official'].map((mode) => (
                 <button
@@ -50,48 +50,43 @@ export default function ObjectionBlock() {
                   className={activeAudience === mode ? 'active' : ''}
                   onClick={() => setActiveAudience(mode)}
                 >
-                  {mode === 'official' ? 'Elected Official' : mode}
+                  {mode === 'official' ? 'Official' : mode}
                 </button>
               ))}
             </div>
 
             <section>
-              <h2>Core Objections</h2>
+              <h2>Objections</h2>
               {objections.length === 0 ? (
-                <p className="empty-state">No objections added yet. Waiting for research data.</p>
+                <p className="empty-state">No data yet.</p>
               ) : (
-                <div className="card-grid">
+                <div className="entry-list">
                   {objections.map((obj) => {
                     const resp = getResponse(obj.id);
                     return (
-                      <div key={obj.id} className="card objection-card">
-                        <h3>"{obj.objection_text}"</h3>
-                        <p><strong>Who makes it:</strong> {obj.who_makes_it}</p>
-                        <p><strong>Value claimed:</strong> {obj.value_claimed}</p>
+                      <div key={obj.id} className="entry entry-expanded">
+                        <p className="entry-quote">"{obj.objection_text}"</p>
+                        <p className="entry-meta">{obj.who_makes_it}</p>
 
-                        <div className="rebuttal-section">
-                          <h4>Evidence-based rebuttal</h4>
-                          <p>{obj.evidence_rebuttal}</p>
+                        {obj.evidence_rebuttal && (
+                          <div className="entry-section">
+                            <span className="entry-section-label">Rebuttal</span>
+                            <p>{obj.evidence_rebuttal}</p>
+                          </div>
+                        )}
 
-                          <h4>Where this rebuttal is weak</h4>
-                          <p className="weakness">{obj.rebuttal_weakness}</p>
+                        {obj.rebuttal_weakness && (
+                          <div className="entry-section">
+                            <span className="entry-section-label entry-section-label-red">Weakness</span>
+                            <p>{obj.rebuttal_weakness}</p>
+                          </div>
+                        )}
 
-                          {resp && (
-                            <>
-                              <h4>Response for {activeAudience}s</h4>
-                              <p>{resp.response_text}</p>
-                              {resp.key_evidence && (
-                                <p><strong>Key evidence:</strong> {resp.key_evidence}</p>
-                              )}
-                              {resp.recommended_tone && (
-                                <p className="notes">Tone: {resp.recommended_tone}</p>
-                              )}
-                            </>
-                          )}
-                        </div>
-
-                        {obj.city_precedent && (
-                          <p><strong>City precedent:</strong> {obj.city_precedent}</p>
+                        {resp && (
+                          <div className="entry-section">
+                            <span className="entry-section-label">For {activeAudience}s</span>
+                            <p>{resp.response_text}</p>
+                          </div>
                         )}
                       </div>
                     );
@@ -99,6 +94,7 @@ export default function ObjectionBlock() {
                 </div>
               )}
             </section>
+
           </div>
         </div>
       </div>

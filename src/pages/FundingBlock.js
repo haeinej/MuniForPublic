@@ -15,12 +15,11 @@ export default function FundingBlock() {
     fetchData();
   }, []);
 
-  if (loading) return <div className="loading">Loading data...</div>;
+  if (loading) return <div className="loading">Loading...</div>;
 
   return (
     <div className="block-page">
       <div className="block-page-header">
-        <div className="block-page-number">03</div>
         <h1 className="block-page-title">Funding Pathways</h1>
         <p className="block-page-subtitle">
           Where could the money come from, and what's actually viable?
@@ -31,34 +30,37 @@ export default function FundingBlock() {
         <BlockSidebar />
         <div className="block-main">
           <div className="block-content">
+
             <section>
               <h2>Funding Sources</h2>
               {sources.length === 0 ? (
-                <p className="empty-state">No funding sources added yet. Waiting for research data.</p>
+                <p className="empty-state">No data yet.</p>
               ) : (
-                <div className="card-grid">
-                  {sources.map((s) => (
-                    <div key={s.id} className="card">
-                      <h3>{s.name}</h3>
-                      <div className="badge-row">
-                        <span className="badge">{s.category}</span>
-                        <span className="badge">{s.operating_or_capital}</span>
-                        <span className="badge">{s.recurring_or_onetime}</span>
-                        <span className={`badge badge-${s.political_feasibility}`}>
-                          {s.political_feasibility} feasibility
-                        </span>
-                      </div>
-                      <p>{s.description}</p>
-                      <p><strong>Legal eligibility:</strong> {s.legal_eligibility}</p>
-                      <p><strong>Estimated amount:</strong> {s.estimated_amount}</p>
-                      <p><strong>Vote threshold:</strong> {s.vote_threshold}</p>
-                      {s.precedent && <p><strong>Precedent:</strong> {s.precedent}</p>}
-                      {s.dependencies && <p><strong>Dependencies:</strong> {s.dependencies}</p>}
-                    </div>
-                  ))}
-                </div>
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Source</th>
+                      <th>Category</th>
+                      <th>Type</th>
+                      <th>Feasibility</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sources.map((s) => (
+                      <tr key={s.id}>
+                        <td><strong>{s.name}</strong><br/><span className="subtle">{s.description}</span></td>
+                        <td className="subtle">{s.category}</td>
+                        <td className="subtle">{s.recurring_or_onetime}</td>
+                        <td><span className={`dot dot-${s.political_feasibility === 'high' ? 'positive' : s.political_feasibility === 'low' ? 'negative' : 'neutral'}`} /> {s.political_feasibility}</td>
+                        <td className="mono">{s.estimated_amount || '—'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               )}
             </section>
+
           </div>
         </div>
       </div>

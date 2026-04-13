@@ -20,12 +20,11 @@ export default function StakeholderBlock() {
     fetchData();
   }, []);
 
-  if (loading) return <div className="loading">Loading data...</div>;
+  if (loading) return <div className="loading">Loading...</div>;
 
   return (
     <div className="block-page">
       <div className="block-page-header">
-        <div className="block-page-number">02</div>
         <h1 className="block-page-title">Stakeholder & Power Map</h1>
         <p className="block-page-subtitle">
           Who decides, who funds, who blocks, who champions, and in what order?
@@ -36,51 +35,59 @@ export default function StakeholderBlock() {
         <BlockSidebar />
         <div className="block-main">
           <div className="block-content">
+
             <section>
               <h2>Key Stakeholders</h2>
               {stakeholders.length === 0 ? (
-                <p className="empty-state">No stakeholders added yet. Waiting for research data.</p>
+                <p className="empty-state">No data yet.</p>
               ) : (
-                <div className="card-grid">
-                  {stakeholders.map((s) => (
-                    <div key={s.id} className="card">
-                      <h3>{s.name}</h3>
-                      <div className="badge-row">
-                        <span className="badge">{s.type}</span>
-                        <span className={`badge badge-${s.current_stance}`}>{s.current_stance}</span>
-                      </div>
-                      <p><strong>Role:</strong> {s.role}</p>
-                      <div className="power-scores">
-                        <span>Authority {s.formal_authority}/5</span>
-                        <span>Budget {s.budget_authority}/5</span>
-                        <span>Agenda {s.agenda_setting}/5</span>
-                        <span>Veto {s.veto_risk}/5</span>
-                        <span>Coalition {s.coalition_value}/5</span>
-                        <span>Narrative {s.narrative_influence}/5</span>
-                      </div>
-                      {s.notes && <p className="notes">{s.notes}</p>}
-                    </div>
-                  ))}
-                </div>
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Stance</th>
+                      <th>Authority</th>
+                      <th>Veto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {stakeholders.map((s) => (
+                      <tr key={s.id}>
+                        <td><strong>{s.name}</strong><br/><span className="subtle">{s.role}</span></td>
+                        <td className="subtle">{s.type}</td>
+                        <td><span className={`dot dot-${s.current_stance === 'supportive' ? 'positive' : s.current_stance === 'opposed' ? 'negative' : 'neutral'}`} /> {s.current_stance}</td>
+                        <td className="mono">{s.formal_authority}/5</td>
+                        <td className="mono">{s.veto_risk}/5</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               )}
             </section>
 
             <section>
               <h2>Decision Pathway</h2>
               {steps.length === 0 ? (
-                <p className="empty-state">No decision pathway mapped yet. Waiting for research data.</p>
+                <p className="empty-state">No data yet.</p>
               ) : (
-                <ol className="decision-pathway">
+                <div className="entry-list">
                   {steps.map((step) => (
-                    <li key={step.id}>
-                      {step.description}
-                      {step.stakeholders?.name && <span className="badge">{step.stakeholders.name}</span>}
-                      {step.typical_timeline && <span className="timeline-badge">{step.typical_timeline}</span>}
-                    </li>
+                    <div key={step.id} className="entry">
+                      <span className="entry-number">{step.step_number}</span>
+                      <div>
+                        <p className="entry-body">{step.description}</p>
+                        <p className="entry-meta">
+                          {step.stakeholders?.name && <span>{step.stakeholders.name}</span>}
+                          {step.typical_timeline && <span> — {step.typical_timeline}</span>}
+                        </p>
+                      </div>
+                    </div>
                   ))}
-                </ol>
+                </div>
               )}
             </section>
+
           </div>
         </div>
       </div>

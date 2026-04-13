@@ -23,12 +23,11 @@ export default function HistoryBlock() {
     fetchData();
   }, []);
 
-  if (loading) return <div className="loading">Loading data...</div>;
+  if (loading) return <div className="loading">Loading...</div>;
 
   return (
     <div className="block-page">
       <div className="block-page-header">
-        <div className="block-page-number">01</div>
         <h1 className="block-page-title">History & Precedent</h1>
         <p className="block-page-subtitle">
           What's been tried before, here and elsewhere, and what actually happened?
@@ -39,66 +38,82 @@ export default function HistoryBlock() {
         <BlockSidebar />
         <div className="block-main">
           <div className="block-content">
+
             <section>
               <h2>City Precedents</h2>
               {precedents.length === 0 ? (
-                <p className="empty-state">No precedents added yet. Waiting for research data.</p>
+                <p className="empty-state">No data yet.</p>
               ) : (
-                <div className="card-grid">
-                  {precedents.map((p) => (
-                    <div key={p.id} className="card">
-                      <h3>{p.city} / {p.policy_name}</h3>
-                      <div className="badge-row">
-                        <span className="badge">{p.year}</span>
-                        <span className={`badge badge-${p.sf_comparability}`}>
-                          {p.sf_comparability} comparability
-                        </span>
-                      </div>
-                      <p><strong>Scope:</strong> {p.scope}</p>
-                      <p><strong>Funding:</strong> {p.funding_mechanism}</p>
-                      <p><strong>Outcomes:</strong> {p.outcomes}</p>
-                      <p><strong>Key lessons:</strong> {p.key_lessons}</p>
-                    </div>
-                  ))}
-                </div>
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>City</th>
+                      <th>Year</th>
+                      <th>Scope</th>
+                      <th>Comparability</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {precedents.map((p) => (
+                      <tr key={p.id}>
+                        <td><strong>{p.city}</strong><br/><span className="subtle">{p.policy_name}</span></td>
+                        <td>{p.year}</td>
+                        <td>{p.scope}</td>
+                        <td><span className={`dot dot-${p.sf_comparability}`} /> {p.sf_comparability}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               )}
             </section>
 
             <section>
-              <h2>Campaign Timeline</h2>
+              <h2>Timeline</h2>
               {timeline.length === 0 ? (
-                <p className="empty-state">No timeline events yet. Waiting for research data.</p>
+                <p className="empty-state">No data yet.</p>
               ) : (
-                <div className="timeline">
-                  {timeline.map((e) => (
-                    <div key={e.id} className={`timeline-event impact-${e.impact_on_viability}`}>
-                      <span className="timeline-date">{e.date}</span>
-                      <span className="badge">{e.type}</span>
-                      <p>{e.description}</p>
-                    </div>
-                  ))}
-                </div>
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Event</th>
+                      <th>Type</th>
+                      <th>Impact</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {timeline.map((e) => (
+                      <tr key={e.id}>
+                        <td className="mono">{e.date}</td>
+                        <td>{e.description}</td>
+                        <td className="subtle">{e.type}</td>
+                        <td><span className={`dot dot-${e.impact_on_viability}`} /> {e.impact_on_viability}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               )}
             </section>
 
             <section>
               <h2>Campaign Memory</h2>
               {memory.length === 0 ? (
-                <p className="empty-state">No campaign memory yet. Waiting for interview data.</p>
+                <p className="empty-state">No data yet.</p>
               ) : (
-                <div className="card-grid">
+                <div className="entry-list">
                   {memory.map((m) => (
-                    <div key={m.id} className="card">
-                      <p><strong>Moment:</strong> {m.moment}</p>
-                      <p><strong>Who:</strong> {m.who_involved}</p>
-                      <p><strong>What shifted:</strong> {m.what_shifted}</p>
-                      <p><strong>Lesson:</strong> {m.strategic_lesson}</p>
-                      <span className="badge">{m.source_type}</span>
+                    <div key={m.id} className="entry">
+                      <p className="entry-body">{m.moment}</p>
+                      <p className="entry-meta">
+                        {m.who_involved && <span>{m.who_involved}</span>}
+                        {m.strategic_lesson && <span> — {m.strategic_lesson}</span>}
+                      </p>
                     </div>
                   ))}
                 </div>
               )}
             </section>
+
           </div>
         </div>
       </div>
