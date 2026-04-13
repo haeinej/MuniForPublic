@@ -3,39 +3,34 @@ import { Link } from 'react-router-dom';
 
 const blocks = [
   {
-    id: 'history',
+    number: '01',
     title: 'History & Precedent',
-    description: "What's been tried before — here and elsewhere — and what actually happened?",
+    description: "What's been tried before, here and elsewhere, and what actually happened?",
     path: '/history',
-    emoji: '📜',
   },
   {
-    id: 'stakeholders',
+    number: '02',
     title: 'Stakeholder & Power Map',
-    description: 'Who decides, who funds, who blocks, who champions — and in what order?',
+    description: 'Who decides, who funds, who blocks, who champions, and in what order?',
     path: '/stakeholders',
-    emoji: '🗺️',
   },
   {
-    id: 'funding',
+    number: '03',
     title: 'Funding Pathways',
-    description: "Where could the money come from — and what's actually viable?",
+    description: "Where could the money come from, and what's actually viable?",
     path: '/funding',
-    emoji: '💰',
   },
   {
-    id: 'objections',
+    number: '04',
     title: 'Objection & Rebuttal Bank',
-    description: "What will people say against this — and what's the best response?",
+    description: "What will people say against this, and what's the best response for the room you're in?",
     path: '/objections',
-    emoji: '⚖️',
   },
   {
-    id: 'timing',
+    number: '05',
     title: 'Political Timing & Triggers',
-    description: 'When does this become viable — and what should we be watching for?',
+    description: "When does this become viable, and what should we be watching for?",
     path: '/timing',
-    emoji: '⏱️',
   },
 ];
 
@@ -43,25 +38,44 @@ export default function Landing() {
   return (
     <main className="landing">
       <section className="hero">
-        <h1>What would it take to make Muni free?</h1>
-        <p>
-          A civic intelligence platform for advocates, staffers, and elected
-          officials navigating fare-free transit policy in San Francisco.
+        <h1 className="hero-wordmark">
+          muniforpublic<span className="tm">TM</span>
+        </h1>
+        <p className="hero-subtitle">
+          A civic intelligence platform for the question: what would it take to
+          make San Francisco's Muni transit system free? Built for advocates,
+          staffers, and elected officials who move policy.
         </p>
-        <Link to="/chat" className="cta-button">
-          Ask a Question
-        </Link>
       </section>
 
-      <section className="blocks-grid">
-        {blocks.map((block) => (
-          <Link to={block.path} key={block.id} className="block-card">
-            <span className="block-emoji">{block.emoji}</span>
-            <h2>{block.title}</h2>
-            <p>{block.description}</p>
-          </Link>
-        ))}
+      <section className="blocks-section">
+        <div className="blocks-section-label">5 Knowledge Blocks</div>
+        <div className="blocks-grid">
+          {blocks.map((block) => (
+            <Link to={block.path} key={block.number} className="block-link">
+              <span className="block-link-number">{block.number}</span>
+              <div className="block-link-content">
+                <div className="block-link-title">{block.title}</div>
+                <div className="block-link-desc">{block.description}</div>
+              </div>
+              <span className="block-link-arrow">&rarr;</span>
+            </Link>
+          ))}
+        </div>
       </section>
+
+      <section className="ask-section">
+        <Link to="/chat" className="ask-link">
+          Ask a question &rarr;
+        </Link>
+        <span className="ask-desc">
+          Pulls from all 5 blocks. Adjusts for your audience.
+        </span>
+      </section>
+
+      <footer className="landing-footer">
+        muniforpublic™ — civic intelligence for fare-free transit
+      </footer>
     </main>
   );
 }
