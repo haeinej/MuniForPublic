@@ -11,6 +11,10 @@ const blocks = [
 
 export default function Header() {
   const location = useLocation();
+  const isLanding = location.pathname === '/';
+
+  // Hide header on landing page (wiki-style, no chrome)
+  if (isLanding) return null;
 
   return (
     <header className="site-header">
