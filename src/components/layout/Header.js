@@ -11,10 +11,8 @@ const blocks = [
 
 export default function Header() {
   const location = useLocation();
-  const isLanding = location.pathname === '/';
 
-  // Hide header on landing page (wiki-style, no chrome)
-  if (isLanding) return null;
+  if (location.pathname === '/') return null;
 
   return (
     <header className="site-header">
@@ -27,7 +25,7 @@ export default function Header() {
             key={b.path}
             to={b.path}
             className="header-link"
-            style={location.pathname === b.path ? { color: '#FFFFFF' } : {}}
+            style={location.pathname === b.path ? { color: '#E8001D' } : {}}
           >
             {b.label}
           </Link>
@@ -35,7 +33,7 @@ export default function Header() {
         <Link
           to="/chat"
           className="header-link"
-          style={location.pathname === '/chat' ? { color: '#FFFFFF' } : {}}
+          style={location.pathname === '/chat' ? { color: '#E8001D' } : {}}
         >
           Ask
         </Link>
