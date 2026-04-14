@@ -32,6 +32,7 @@ Create a `.env` file:
 REACT_APP_SUPABASE_URL=https://ocqsaapzkuunskosazza.supabase.co
 REACT_APP_SUPABASE_ANON_KEY=<get from team>
 SUPABASE_SERVICE_ROLE_KEY=<get from team, needed for imports only>
+GEMINI_API_KEY=<get from aistudio.google.com, needed for embeddings>
 ```
 
 Run locally:
@@ -59,6 +60,14 @@ node scripts/import.js decision_pathway_steps data/decision_pathway_steps.csv
 ```
 
 Order matters. Sources first, then claims and stakeholders, then everything else (they reference sources/stakeholders by name).
+
+After importing, generate embeddings for semantic search:
+
+```bash
+node scripts/embed-all.js
+```
+
+This calls the Gemini API to generate 768-dim vectors for claims, sources, and objections. Rate-limited to stay within free tier (15 req/min).
 
 ## Project structure
 
