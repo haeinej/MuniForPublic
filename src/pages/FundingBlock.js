@@ -4,6 +4,7 @@ import BlockSidebar from '../components/layout/BlockSidebar';
 
 export default function FundingBlock() {
   const [sources, setSources] = useState([]);
+  const [expanded, setExpanded] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,21 +41,44 @@ export default function FundingBlock() {
                   <thead>
                     <tr>
                       <th>Source</th>
-                      <th>Category</th>
                       <th>Type</th>
+                      <th>Recurring</th>
                       <th>Feasibility</th>
-                      <th>Amount</th>
+                      <th>Threshold</th>
                     </tr>
                   </thead>
                   <tbody>
                     {sources.map((s) => (
-                      <tr key={s.id}>
-                        <td><strong>{s.name}</strong><br/><span className="subtle">{s.description}</span></td>
-                        <td className="subtle">{s.category}</td>
-                        <td className="subtle">{s.recurring_or_onetime}</td>
-                        <td><span className={`dot dot-${s.political_feasibility === 'high' ? 'positive' : s.political_feasibility === 'low' ? 'negative' : 'neutral'}`} /> {s.political_feasibility}</td>
-                        <td className="mono">{s.estimated_amount || '—'}</td>
-                      </tr>
+                      <React.Fragment key={s.id}>
+                        <tr
+                          onClick={() => setExpanded(expanded === s.id ? null : s.id)}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          <td>
+                            <strong>{s.name}</strong>
+                            <br/><span className="subtle">{s.category}</span>
+                          </td>
+                          <td className="subtle">{s.operating_or_capital}</td>
+                          <td className="subtle">{s.recurring_or_onetime}</td>
+                          <td>
+                            <span className={`dot dot-${s.political_feasibility === 'high' ? 'positive' : s.political_feasibility === 'low' ? 'negative' : 'neutral'}`} />
+                            {s.political_feasibility}
+                          </td>
+                          <td className="subtle">{s.vote_threshold || '—'}</td>
+                        </tr>
+                        {expanded === s.id && (
+                          <tr>
+                            <td colSpan="5" className="expanded-cell">
+                              {s.description && <p>{s.description}</p>}
+                              {s.legal_eligibility && <p><strong>Legal eligibility:</strong> {s.legal_eligibility}</p>}
+                              {s.estimated_amount && <p><strong>Estimated amount:</strong> {s.estimated_amount}</p>}
+                              {s.precedent && <p><strong>Precedent:</strong> {s.precedent}</p>}
+                              {s.dependencies && <p><strong>Dependencies:</strong> {s.dependencies}</p>}
+                              {s.notes && <p className="notes">{s.notes}</p>}
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
                     ))}
                   </tbody>
                 </table>

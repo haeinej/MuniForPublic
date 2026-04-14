@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# muniforpublic
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A civic intelligence platform for the question: what would it take to make San Francisco's Muni transit system free?
 
-## Available Scripts
+Built for advocates, staffers, and elected officials who move policy.
 
-In the project directory, you can run:
+**Live site:** https://muni-for-public.vercel.app
 
-### `npm start`
+## Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+React app (Vercel)
+    ↓
+Supabase Edge Functions (API logic, chatbot pipeline)
+    ↓
+Supabase Postgres + pgvector (all data, semantic search)
+    ↓
+Google Gemini API (embeddings, query classification, response generation)
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup
 
-### `npm test`
+```bash
+git clone https://github.com/haeinej/MuniForPublic.git
+cd MuniForPublic
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Create a `.env` file:
 
-### `npm run build`
+```
+REACT_APP_SUPABASE_URL=https://ocqsaapzkuunskosazza.supabase.co
+REACT_APP_SUPABASE_ANON_KEY=<get from team>
+SUPABASE_SERVICE_ROLE_KEY=<get from team, needed for imports only>
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Run locally:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Importing data
 
-### `npm run eject`
+Person 2 fills Google Sheets. Export each tab as CSV to `data/`, then import in order:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+node scripts/import.js sources data/sources.csv
+node scripts/import.js claims data/claims.csv
+node scripts/import.js stakeholders data/stakeholders.csv
+node scripts/import.js stakeholder_relationships data/stakeholder_relationships.csv
+node scripts/import.js funding_sources data/funding_sources.csv
+node scripts/import.js objections data/objections.csv
+node scripts/import.js objection_audience_responses data/objection_audience_responses.csv
+node scripts/import.js precedents data/precedents.csv
+node scripts/import.js timeline_events data/timeline_events.csv
+node scripts/import.js campaign_memory data/campaign_memory.csv
+node scripts/import.js decision_pathway_steps data/decision_pathway_steps.csv
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Order matters. Sources first, then claims and stakeholders, then everything else (they reference sources/stakeholders by name).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Project structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+src/
+  pages/          — Landing, 5 block views, ChatPage
+  components/     — Header, BlockSidebar
+  lib/            — Supabase client
+scripts/
+  import.js       — CSV → Supabase with ID resolution
+supabase/
+  functions/      — Edge Functions (embed, search, chat)
+data/             — CSV exports from Google Sheets
+public/
+  muni-logo.png   — Muni worm logo
+```
 
-## Learn More
+## Roles
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Person 1 (Scaffolding):** Repo, database, frontend, imports
+- **Person 2 (Research):** Fills Google Sheets with structured policy data
+- **Person 3 (Chatbot):** Builds the AI query classification + retrieval + generation pipeline
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Deploy
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Frontend auto-deploys to Vercel on push to `main`. Edge Functions deploy via `supabase functions deploy`.

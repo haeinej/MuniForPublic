@@ -362,6 +362,22 @@ a { color: inherit; text-decoration: none; }
 .data-table tbody tr:hover { background: var(--color-paper); }
 .data-table strong { font-weight: 600; }
 
+.expanded-cell {
+  background: var(--color-paper);
+  padding: 16px 20px !important;
+}
+
+.expanded-cell p {
+  font-size: 13px;
+  color: var(--color-gray-dark);
+  margin-bottom: 6px;
+  line-height: 1.55;
+}
+
+.expanded-cell strong {
+  color: var(--color-black);
+}
+
 .subtle { color: var(--color-gray-mid); font-size: 12px; }
 
 .mono {
