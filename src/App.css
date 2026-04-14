@@ -1,11 +1,9 @@
 /* ============================================
    muniforpublic™ — Design System v1.0
-   Post-Institutional Brutalism with Editorial Energy
+   White background variant. Same fonts, same red.
    ============================================ */
 
-/* TOKENS */
 :root {
-  /* Colors */
   --color-black: #000000;
   --color-white: #FFFFFF;
   --color-red: #E8001D;
@@ -15,115 +13,86 @@
   --color-gray-light: #DDDDDD;
   --color-paper: #F5F5F5;
 
-  /* Typography */
   --font-display: 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
   --size-hero: clamp(64px, 10vw, 120px);
   --size-display: clamp(32px, 5vw, 56px);
-  --size-body: clamp(14px, 1.2vw, 16px);
+  --size-body: 14px;
   --size-label: 11px;
   --tracking-display: -0.03em;
   --tracking-label: 0.12em;
-
-  /* Spacing */
-  --space-xs: 8px;
-  --space-sm: 24px;
-  --space-md: 64px;
-  --space-lg: 120px;
-  --space-xl: 200px;
-
-  /* Motion */
-  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-data: linear;
-  --ease-snap: cubic-bezier(0.5, 0, 0.75, 0);
-  --duration-fast: 200ms;
-  --duration-mid: 600ms;
-  --duration-slow: 1200ms;
 }
 
-/* RESET */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+* { border-radius: 0 !important; }
 
 body {
   font-family: var(--font-body);
   font-size: var(--size-body);
-  color: #202122;
-  background: #fff;
+  color: var(--color-black);
+  background: var(--color-white);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* No rounded corners. Anywhere. */
-* { border-radius: 0 !important; }
-
 a { color: inherit; text-decoration: none; }
-
 .App { min-height: 100vh; }
 
 /* ============================================
-   HEADER — thin institutional bar
+   HEADER
    ============================================ */
 .site-header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 var(--space-sm);
+  padding: 0 24px;
   height: 48px;
-  background: #fff;
-  border-bottom: 1px solid #eaecf0;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-gray-light);
 }
 
 .site-logo {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 15px;
-  font-weight: 400;
-  color: #000;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--color-black);
   text-transform: lowercase;
+  letter-spacing: var(--tracking-display);
 }
 
 .site-logo .tm {
   color: var(--color-red);
-  font-size: 9px;
+  font-size: 8px;
   vertical-align: super;
-  margin-left: 1px;
 }
 
 .header-nav {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: 20px;
 }
 
 .header-link {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: var(--size-label);
-  font-weight: 500;
-  color: #72777d;
+  font-weight: 700;
+  color: var(--color-gray-mid);
   text-transform: uppercase;
   letter-spacing: var(--tracking-label);
 }
 
-.header-link:hover {
-  color: #3366cc;
-}
+.header-link:hover { color: var(--color-black); }
 
 /* ============================================
-   LANDING — Wikipedia-style, symbol-driven
+   LANDING
    ============================================ */
 .wiki-landing {
   min-height: 100vh;
-  background: #fff;
+  background: var(--color-white);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -135,7 +104,7 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--font-display);
   font-size: clamp(24px, 4vw, 38px);
   font-weight: 900;
-  color: #000;
+  color: var(--color-black);
   letter-spacing: var(--tracking-display);
   text-align: center;
   text-transform: lowercase;
@@ -143,16 +112,15 @@ a { color: inherit; text-decoration: none; }
 
 .wiki-tagline {
   font-family: var(--font-body);
-  font-size: 12px;
-  color: #888;
+  font-size: var(--size-label);
+  color: var(--color-gray-mid);
   text-align: center;
-  margin-top: 2px;
+  margin-top: 4px;
   margin-bottom: 36px;
   text-transform: uppercase;
   letter-spacing: var(--tracking-label);
 }
 
-/* 3-column: left blocks, logo, right blocks */
 .wiki-center {
   display: flex;
   align-items: center;
@@ -167,16 +135,9 @@ a { color: inherit; text-decoration: none; }
   gap: 28px;
 }
 
-.wiki-logo {
-  flex-shrink: 0;
-}
+.wiki-logo { flex-shrink: 0; }
+.wiki-logo img { width: clamp(120px, 20vw, 220px); height: auto; }
 
-.wiki-logo img {
-  width: clamp(120px, 20vw, 220px);
-  height: auto;
-}
-
-/* Block items — symbol + one word */
 .wiki-item {
   display: flex;
   flex-direction: column;
@@ -186,25 +147,19 @@ a { color: inherit; text-decoration: none; }
   min-width: 80px;
 }
 
-.wiki-icon {
-  font-size: 28px;
-  line-height: 1;
-}
+.wiki-icon { font-size: 28px; line-height: 1; }
 
 .wiki-label {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  color: #000;
+  color: var(--color-black);
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
 }
 
-.wiki-item:hover .wiki-label {
-  color: var(--color-red);
-}
+.wiki-item:hover .wiki-label { color: var(--color-red); }
 
-/* Bottom row */
 .wiki-bottom-row {
   display: flex;
   justify-content: center;
@@ -212,15 +167,13 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 36px;
 }
 
-/* Search */
 .wiki-search {
   display: flex;
   align-items: center;
   max-width: 440px;
   width: 100%;
   margin-bottom: 20px;
-  border: 1px solid #ddd;
-  background: #fff;
+  border: 1px solid var(--color-gray-light);
 }
 
 .wiki-search-input {
@@ -229,18 +182,18 @@ a { color: inherit; text-decoration: none; }
   border: none;
   font-family: var(--font-body);
   font-size: 13px;
-  color: #000;
+  color: var(--color-black);
   background: transparent;
   outline: none;
 }
 
-.wiki-search-input::placeholder { color: #bbb; }
+.wiki-search-input::placeholder { color: var(--color-gray-light); }
 
 .wiki-search-btn {
   padding: 8px 14px;
   background: var(--color-red);
   border: none;
-  color: #fff;
+  color: var(--color-white);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -248,7 +201,6 @@ a { color: inherit; text-decoration: none; }
 
 .wiki-search-btn:hover { background: #c50018; }
 
-/* Footer */
 .wiki-footer {
   display: flex;
   align-items: center;
@@ -257,113 +209,93 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
 }
 
-.wiki-footer-line {
-  flex: 1;
-  height: 1px;
-  background: #eaecf0;
-}
+.wiki-footer-line { flex: 1; height: 1px; background: var(--color-gray-light); }
 
 .wiki-footer-text {
   font-family: var(--font-body);
-  font-size: 11px;
-  color: #a2a9b1;
+  font-size: var(--size-label);
+  color: var(--color-gray-mid);
   white-space: nowrap;
 }
 
 @media (max-width: 600px) {
-  .wiki-center {
-    flex-direction: column;
-    gap: 20px;
-  }
-  .wiki-col {
-    flex-direction: row;
-    gap: 24px;
-  }
+  .wiki-center { flex-direction: column; gap: 20px; }
+  .wiki-col { flex-direction: row; gap: 24px; }
   .wiki-bottom-row { gap: 24px; }
 }
 
 /* ============================================
-   BLOCK PAGES — editorial article layout
+   BLOCK PAGES
    ============================================ */
 .block-page {
   padding-top: 48px;
   min-height: 100vh;
-  background: #fff;
+  background: var(--color-white);
 }
 
 .block-page-header {
-  padding: 48px var(--space-sm) 32px;
-  border-bottom: 1px solid #eaecf0;
-}
-
-.block-page-number {
-  font-family: 'Georgia', serif;
-  font-size: 48px;
-  font-weight: 400;
-  color: #c8ccd1;
-  line-height: 0.85;
+  padding: 48px 24px 32px;
+  border-bottom: 1px solid var(--color-gray-light);
 }
 
 .block-page-title {
-  font-family: 'Georgia', serif;
+  font-family: var(--font-display);
   font-size: clamp(22px, 3vw, 32px);
-  font-weight: 400;
-  margin-top: var(--space-xs);
-  color: #000;
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  color: var(--color-black);
 }
 
 .block-page-subtitle {
   font-family: var(--font-body);
   font-size: var(--size-body);
-  color: #72777d;
-  margin-top: 12px;
+  color: var(--color-gray-mid);
+  margin-top: 8px;
   max-width: 640px;
   line-height: 1.6;
 }
 
-/* Content area */
+.block-layout { display: flex; }
+
 .block-content {
   max-width: 800px;
-  padding: var(--space-md) var(--space-sm);
+  padding: 40px 24px;
 }
 
-.block-content section {
-  margin-bottom: var(--space-lg);
-}
+.block-content section { margin-bottom: 64px; }
 
 .block-content section h2 {
-  font-family: 'Georgia', serif;
-  font-size: clamp(18px, 2.5vw, 24px);
-  font-weight: 400;
-  margin-bottom: var(--space-sm);
-  padding-bottom: var(--space-xs);
-  border-bottom: 1px solid #eaecf0;
-  color: #000;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-gray-light);
+  color: var(--color-black);
 }
 
-/* Sidebar navigation for block pages */
-.block-layout {
-  display: flex;
-}
-
+/* Sidebar */
 .block-sidebar {
   position: sticky;
   top: 48px;
   width: 200px;
   height: calc(100vh - 48px);
   padding: 32px 16px;
-  border-right: 1px solid #eaecf0;
+  border-right: 1px solid var(--color-gray-light);
   flex-shrink: 0;
   overflow-y: auto;
-  background: #f8f9fa;
+  background: var(--color-paper);
 }
 
 .block-sidebar-label {
+  font-family: var(--font-display);
   font-size: var(--size-label);
-  font-weight: 500;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: var(--tracking-label);
-  color: #72777d;
+  color: var(--color-gray-mid);
   margin-bottom: 16px;
 }
 
@@ -371,390 +303,34 @@ a { color: inherit; text-decoration: none; }
   display: block;
   font-family: var(--font-body);
   font-size: 13px;
-  color: #3366cc;
+  color: var(--color-gray-mid);
   padding: 6px 0;
-  border-bottom: 1px solid #eaecf0;
+  border-bottom: 1px solid var(--color-gray-light);
 }
 
-.block-sidebar-link:hover {
-  text-decoration: underline;
-}
+.block-sidebar-link:hover { color: var(--color-black); }
 
 .block-sidebar-link.active {
-  color: #202122;
+  color: var(--color-red);
   font-weight: 600;
-  border-bottom-color: #202122;
 }
 
 .block-sidebar-number {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 11px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--size-label);
   margin-right: 6px;
-  color: #a2a9b1;
+  color: var(--color-gray-light);
 }
 
-.block-main {
-  flex: 1;
-  min-width: 0;
-}
+.block-main { flex: 1; min-width: 0; }
 
 @media (max-width: 768px) {
   .block-sidebar { display: none; }
-  .block-main { width: 100%; }
 }
 
 /* ============================================
-   CARDS — institutional form aesthetic
-   ============================================ */
-.card-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-}
-
-.card {
-  padding: 16px 20px;
-  border: 1px solid #eaecf0;
-  border-bottom: none;
-  background: #fff;
-}
-
-.card:last-child {
-  border-bottom: 1px solid #eaecf0;
-}
-
-.card h3 {
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #000;
-}
-
-.card p {
-  font-size: 13px;
-  color: #54595d;
-  margin-bottom: 4px;
-  line-height: 1.55;
-}
-
-.card strong {
-  color: #202122;
-  font-weight: 500;
-}
-
-/* ============================================
-   BADGES — institutional labels
-   ============================================ */
-.badge {
-  display: inline-block;
-  padding: 2px 8px;
-  font-family: var(--font-body);
-  font-size: var(--size-label);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-  border: 1px solid #ddd;
-  color: #72777d;
-  margin-right: 6px;
-  margin-bottom: 6px;
-}
-
-.badge-high, .badge-positive, .badge-supportive {
-  border-color: #000;
-  color: #000;
-}
-
-.badge-medium, .badge-neutral {
-  border-color: #888;
-  color: #888;
-}
-
-.badge-low, .badge-negative, .badge-opposed {
-  border-color: var(--color-red);
-  color: var(--color-red);
-}
-
-.badge-unknown {
-  border-color: #ddd;
-  color: #bbb;
-}
-
-.badge-row {
-  margin-bottom: var(--space-xs);
-}
-
-/* ============================================
-   POWER SCORES — data as design
-   ============================================ */
-.power-scores {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  margin: 8px 0;
-  background: #eaecf0;
-  border: 1px solid #eaecf0;
-}
-
-.power-scores span {
-  background: #f8f9fa;
-  padding: 6px;
-  font-family: var(--font-mono);
-  font-size: var(--size-label);
-  color: #54595d;
-  text-align: center;
-}
-
-/* ============================================
-   TIMELINE — vertical institutional
-   ============================================ */
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.timeline-event {
-  padding: 16px 20px;
-  border-left: 3px solid #ddd;
-  border-bottom: 1px solid #eaecf0;
-}
-
-.timeline-event.impact-positive { border-left-color: #000; }
-.timeline-event.impact-negative { border-left-color: var(--color-red); }
-.timeline-event.impact-neutral  { border-left-color: #888; }
-
-.timeline-date {
-  font-family: var(--font-mono);
-  font-size: var(--size-label);
-  color: #72777d;
-  margin-right: 6px;
-}
-
-/* ============================================
-   DECISION PATHWAY
-   ============================================ */
-.decision-pathway {
-  list-style: none;
-  padding: 0;
-  counter-reset: step;
-}
-
-.decision-pathway li {
-  counter-increment: step;
-  padding: var(--space-sm);
-  border-bottom: 1px solid var(--color-gray-dark);
-  font-size: 14px;
-  line-height: 1.55;
-}
-
-.decision-pathway li::before {
-  content: counter(step);
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 28px;
-  letter-spacing: var(--tracking-display);
-  color: #c8ccd1;
-  margin-right: 16px;
-  float: left;
-  line-height: 1;
-}
-
-.timeline-badge {
-  font-family: var(--font-mono);
-  font-size: var(--size-label);
-  color: var(--color-gray-mid);
-  margin-left: var(--space-xs);
-}
-
-/* ============================================
-   OBJECTION CARDS — the tension
-   ============================================ */
-.objection-card h3 {
-  font-family: var(--font-display);
-  font-style: normal;
-  color: var(--color-white);
-  font-size: 18px;
-  text-transform: none;
-}
-
-.rebuttal-section {
-  margin-top: var(--space-sm);
-  padding-top: var(--space-sm);
-  border-top: 1px solid var(--color-gray-dark);
-}
-
-.rebuttal-section h4 {
-  font-family: var(--font-body);
-  font-size: var(--size-label);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-  color: var(--color-gray-mid);
-  margin: var(--space-sm) 0 var(--space-xs);
-}
-
-.weakness {
-  color: var(--color-red) !important;
-  font-style: normal;
-  font-family: var(--font-body);
-}
-
-/* AUDIENCE TOGGLE — institutional switches */
-.audience-toggle {
-  display: flex;
-  gap: 0;
-  margin-bottom: 32px;
-  border: 1px solid #ddd;
-}
-
-.audience-toggle button {
-  flex: 1;
-  padding: 8px 16px;
-  border: none;
-  background: #fff;
-  color: #72777d;
-  font-family: var(--font-body);
-  font-size: var(--size-label);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-  cursor: pointer;
-}
-
-.audience-toggle button + button {
-  border-left: 1px solid #ddd;
-}
-
-.audience-toggle button.active {
-  background: #000;
-  color: #fff;
-}
-
-/* ============================================
-   CHAT — terminal aesthetic
-   ============================================ */
-.chat-page {
-  padding-top: 48px;
-  min-height: 100vh;
-  background: #fff;
-}
-
-.chat-page-header {
-  padding: 48px var(--space-sm) 24px;
-  border-bottom: 1px solid #eaecf0;
-}
-
-.chat-page-header h1 {
-  font-family: 'Georgia', serif;
-  font-size: clamp(22px, 3vw, 32px);
-  font-weight: 400;
-  color: #000;
-}
-
-.chat-container {
-  max-width: 800px;
-  padding: var(--space-md) var(--space-sm);
-}
-
-.chat-messages {
-  min-height: 300px;
-  max-height: 60vh;
-  overflow-y: auto;
-  margin-bottom: 16px;
-  border: 1px solid #eaecf0;
-}
-
-.chat-message {
-  padding: 16px 20px;
-  border-bottom: 1px solid #eaecf0;
-  font-size: 14px;
-  line-height: 1.55;
-}
-
-.chat-message:last-child { border-bottom: none; }
-
-.chat-message.user {
-  background: #f8f9fa;
-  color: #202122;
-}
-
-.chat-message.assistant {
-  background: #fff;
-  color: #54595d;
-}
-
-.chat-input {
-  display: flex;
-  gap: 0;
-  border: 1px solid #ddd;
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 12px 16px;
-  background: #fff;
-  border: none;
-  color: #000;
-  font-family: var(--font-body);
-  font-size: 14px;
-  outline: none;
-}
-
-.chat-input input::placeholder {
-  color: #bbb;
-}
-
-.chat-input button {
-  padding: 12px 24px;
-  background: #000;
-  color: #fff;
-  border: none;
-  font-family: var(--font-body);
-  font-size: var(--size-label);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
-  cursor: pointer;
-}
-
-.chat-input button:hover {
-  background: #333;
-}
-
-/* ============================================
-   EMPTY STATE — honest about gaps
-   ============================================ */
-.empty-state {
-  padding: 32px 20px;
-  text-align: left;
-  color: #a2a9b1;
-  font-size: 13px;
-  border: 1px dashed #ddd;
-}
-
-/* ============================================
-   LOADING
-   ============================================ */
-.loading {
-  padding: 80px 20px;
-  font-family: var(--font-body);
-  font-size: 13px;
-  color: #a2a9b1;
-}
-
-/* ============================================
-   NOTES
-   ============================================ */
-.notes {
-  color: #72777d !important;
-  font-size: 12px !important;
-  font-family: var(--font-mono) !important;
-}
-
-/* ============================================
-   DATA TABLE — clean wiki-style
+   DATA TABLE
    ============================================ */
 .data-table {
   width: 100%;
@@ -765,42 +341,33 @@ a { color: inherit; text-decoration: none; }
 
 .data-table thead th {
   text-align: left;
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: var(--size-label);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #72777d;
+  letter-spacing: 0.06em;
+  color: var(--color-gray-mid);
   padding: 8px 12px;
-  border-bottom: 2px solid #eaecf0;
+  border-bottom: 1px solid var(--color-black);
   white-space: nowrap;
 }
 
 .data-table tbody td {
   padding: 10px 12px;
-  border-bottom: 1px solid #eaecf0;
+  border-bottom: 1px solid var(--color-gray-light);
   vertical-align: top;
-  color: #202122;
+  color: var(--color-black);
 }
 
-.data-table tbody tr:hover {
-  background: #f8f9fa;
-}
+.data-table tbody tr:hover { background: var(--color-paper); }
+.data-table strong { font-weight: 600; }
 
-.data-table strong {
-  font-weight: 600;
-  color: #000;
-}
-
-.subtle {
-  color: #72777d;
-  font-size: 12px;
-}
+.subtle { color: var(--color-gray-mid); font-size: 12px; }
 
 .mono {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: #54595d;
+  color: var(--color-gray-dark);
   white-space: nowrap;
 }
 
@@ -812,63 +379,59 @@ a { color: inherit; text-decoration: none; }
   border-radius: 50% !important;
   margin-right: 4px;
   vertical-align: middle;
-  background: #c8ccd1;
+  background: var(--color-gray-light);
 }
 
-.dot-high, .dot-positive { background: #000; }
-.dot-medium, .dot-neutral { background: #a2a9b1; }
+.dot-high, .dot-positive { background: var(--color-black); }
+.dot-medium, .dot-neutral { background: var(--color-gray-mid); }
 .dot-low, .dot-negative { background: var(--color-red); }
 
 /* ============================================
-   ENTRY LIST — prose-style items
+   ENTRY LIST
    ============================================ */
-.entry-list {
-  display: flex;
-  flex-direction: column;
-}
+.entry-list { display: flex; flex-direction: column; }
 
 .entry {
   padding: 16px 0;
-  border-bottom: 1px solid #eaecf0;
+  border-bottom: 1px solid var(--color-gray-light);
   display: flex;
   gap: 16px;
   align-items: flex-start;
 }
 
-.entry:last-child {
-  border-bottom: none;
-}
+.entry:last-child { border-bottom: none; }
 
 .entry-number {
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 24px;
-  color: #c8ccd1;
+  color: var(--color-gray-light);
   line-height: 1;
   min-width: 32px;
 }
 
 .entry-body {
-  font-size: 14px;
-  color: #202122;
+  font-size: var(--size-body);
+  color: var(--color-black);
   line-height: 1.55;
 }
 
 .entry-meta {
   font-size: 12px;
-  color: #72777d;
+  color: var(--color-gray-mid);
   margin-top: 4px;
 }
 
 .entry-quote {
-  font-size: 15px;
-  font-style: italic;
-  color: #202122;
-  line-height: 1.5;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  font-style: normal;
+  color: var(--color-black);
+  line-height: 1.4;
   margin-bottom: 4px;
 }
 
-/* Expanded entry (objections) */
 .entry-expanded {
   flex-direction: column;
   gap: 0;
@@ -878,32 +441,191 @@ a { color: inherit; text-decoration: none; }
 .entry-section {
   margin-top: 12px;
   padding-left: 16px;
-  border-left: 2px solid #eaecf0;
+  border-left: 2px solid var(--color-gray-light);
 }
 
 .entry-section p {
   font-size: 13px;
-  color: #54595d;
+  color: var(--color-gray-dark);
   line-height: 1.55;
 }
 
 .entry-section-label {
   display: block;
-  font-size: 11px;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: var(--size-label);
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #72777d;
+  letter-spacing: 0.06em;
+  color: var(--color-gray-mid);
   margin-bottom: 4px;
 }
 
-.entry-section-label-red {
-  color: var(--color-red);
+.entry-section-label-red { color: var(--color-red); }
+
+/* ============================================
+   AUDIENCE TOGGLE
+   ============================================ */
+.audience-toggle {
+  display: flex;
+  gap: 0;
+  margin-bottom: 32px;
+  border: 1px solid var(--color-gray-light);
+}
+
+.audience-toggle button {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  background: var(--color-white);
+  color: var(--color-gray-mid);
+  font-family: var(--font-display);
+  font-size: var(--size-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  cursor: pointer;
+}
+
+.audience-toggle button + button {
+  border-left: 1px solid var(--color-gray-light);
+}
+
+.audience-toggle button.active {
+  background: var(--color-black);
+  color: var(--color-white);
 }
 
 /* ============================================
-   SCROLLBAR — minimal
+   CHAT
+   ============================================ */
+.chat-page {
+  padding-top: 48px;
+  min-height: 100vh;
+  background: var(--color-white);
+}
+
+.chat-page-header {
+  padding: 48px 24px 24px;
+  border-bottom: 1px solid var(--color-gray-light);
+}
+
+.chat-page-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  color: var(--color-black);
+}
+
+.chat-container {
+  max-width: 800px;
+  padding: 40px 24px;
+}
+
+.chat-messages {
+  min-height: 300px;
+  max-height: 60vh;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  border: 1px solid var(--color-gray-light);
+}
+
+.chat-message {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-gray-light);
+  font-size: var(--size-body);
+  line-height: 1.55;
+}
+
+.chat-message:last-child { border-bottom: none; }
+.chat-message.user { background: var(--color-paper); color: var(--color-black); }
+.chat-message.assistant { background: var(--color-white); color: var(--color-gray-dark); }
+
+.chat-input {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--color-gray-light);
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 12px 16px;
+  background: var(--color-white);
+  border: none;
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  outline: none;
+}
+
+.chat-input input::placeholder { color: var(--color-gray-light); }
+
+.chat-input button {
+  padding: 12px 24px;
+  background: var(--color-red);
+  color: var(--color-white);
+  border: none;
+  font-family: var(--font-display);
+  font-size: var(--size-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  cursor: pointer;
+}
+
+.chat-input button:hover { background: #c50018; }
+
+/* ============================================
+   BADGES
+   ============================================ */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-family: var(--font-display);
+  font-size: var(--size-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--color-gray-light);
+  color: var(--color-gray-mid);
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+.badge-high, .badge-positive, .badge-supportive { border-color: var(--color-black); color: var(--color-black); }
+.badge-medium, .badge-neutral { border-color: var(--color-gray-mid); color: var(--color-gray-mid); }
+.badge-low, .badge-negative, .badge-opposed { border-color: var(--color-red); color: var(--color-red); }
+.badge-unknown { border-color: var(--color-gray-light); color: var(--color-gray-light); }
+.badge-row { margin-bottom: 8px; }
+
+/* ============================================
+   EMPTY / LOADING
+   ============================================ */
+.empty-state {
+  padding: 32px 20px;
+  text-align: left;
+  color: var(--color-gray-mid);
+  font-size: 13px;
+  border: 1px dashed var(--color-gray-light);
+}
+
+.loading {
+  padding: 80px 20px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-gray-mid);
+}
+
+.notes {
+  color: var(--color-gray-mid) !important;
+  font-size: 12px !important;
+  font-family: var(--font-mono) !important;
+}
+
+/* ============================================
+   SCROLLBAR
    ============================================ */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #f8f9fa; }
-::-webkit-scrollbar-thumb { background: #c8ccd1; }
+::-webkit-scrollbar-track { background: var(--color-paper); }
+::-webkit-scrollbar-thumb { background: var(--color-gray-light); }
