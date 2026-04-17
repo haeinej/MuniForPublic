@@ -50,7 +50,7 @@ export default function ObjectionBlock() {
                   className={activeAudience === mode ? 'active' : ''}
                   onClick={() => setActiveAudience(mode)}
                 >
-                  {mode === 'official' ? 'Official' : mode}
+                  {mode}
                 </button>
               ))}
             </div>
@@ -60,32 +60,58 @@ export default function ObjectionBlock() {
               {objections.length === 0 ? (
                 <p className="empty-state">No data yet.</p>
               ) : (
-                <div className="entry-list">
+                <div>
                   {objections.map((obj) => {
                     const resp = getResponse(obj.id);
                     return (
-                      <div key={obj.id} className="entry entry-expanded">
+                      <div key={obj.id} className="objection-card">
                         <p className="entry-quote">"{obj.objection_text}"</p>
-                        <p className="entry-meta">{obj.who_makes_it}</p>
+                        <div className="objection-who">
+                          {obj.who_makes_it && obj.who_makes_it.split(',').map((who, i) => (
+                            <span key={i} className="badge">{who.trim()}</span>
+                          ))}
+                        </div>
 
                         {obj.evidence_rebuttal && (
-                          <div className="entry-section">
-                            <span className="entry-section-label">Rebuttal</span>
-                            <p>{obj.evidence_rebuttal}</p>
+                          <div className="objection-section objection-section-rebuttal">
+                            <div className="objection-section-header">
+                              <span className="objection-section-icon">&#9632;</span>
+                              <span className="entry-section-label">Evidence Rebuttal</span>
+                            </div>
+                            <p className="entry-body" style={{ fontSize: '13px', color: 'var(--color-gray-dark)' }}>{obj.evidence_rebuttal}</p>
                           </div>
                         )}
 
                         {obj.rebuttal_weakness && (
-                          <div className="entry-section">
-                            <span className="entry-section-label entry-section-label-red">Weakness</span>
-                            <p>{obj.rebuttal_weakness}</p>
+                          <div className="objection-section objection-section-weakness">
+                            <div className="objection-section-header">
+                              <span className="objection-section-icon" style={{ color: 'var(--color-red)' }}>&#9650;</span>
+                              <span className="entry-section-label entry-section-label-red">Weakness</span>
+                            </div>
+                            <p className="entry-body" style={{ fontSize: '13px', color: 'var(--color-gray-dark)' }}>{obj.rebuttal_weakness}</p>
+                          </div>
+                        )}
+
+                        {obj.city_precedent && (
+                          <div className="objection-section objection-section-audience">
+                            <div className="objection-section-header">
+                              <span className="objection-section-icon">&#9679;</span>
+                              <span className="entry-section-label">City Precedent</span>
+                            </div>
+                            <p className="entry-body" style={{ fontSize: '13px', color: 'var(--color-gray-dark)' }}>{obj.city_precedent}</p>
                           </div>
                         )}
 
                         {resp && (
-                          <div className="entry-section">
-                            <span className="entry-section-label">For {activeAudience}s</span>
-                            <p>{resp.response_text}</p>
+                          <div className="objection-section objection-section-audience" style={{ borderLeftColor: 'var(--color-black)' }}>
+                            <div className="objection-section-header">
+                              <span className="objection-section-icon">&#9654;</span>
+                              <span className="entry-section-label">For {activeAudience}s</span>
+                            </div>
+                            <p className="entry-body" style={{ fontSize: '13px', color: 'var(--color-gray-dark)' }}>{resp.response_text}</p>
+                            {resp.recommended_tone && (
+                              <p className="subtle" style={{ marginTop: '4px' }}>Tone: {resp.recommended_tone}</p>
+                            )}
                           </div>
                         )}
                       </div>

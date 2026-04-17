@@ -12,7 +12,7 @@ export default function HistoryBlock() {
     async function fetchData() {
       const [p, t, m] = await Promise.all([
         supabase.from('precedents').select('*').order('year', { ascending: false }),
-        supabase.from('timeline_events').select('*').order('date', { ascending: false }),
+        supabase.from('timeline_events').select('*').order('date', { ascending: true }),
         supabase.from('campaign_memory').select('*'),
       ]);
       setPrecedents(p.data || []);
@@ -25,11 +25,8 @@ export default function HistoryBlock() {
 
   if (loading) return <div className="loading">Loading...</div>;
 
-  // Interleave campaign memory into timeline by date proximity
-  const allEvents = [
-    ...timeline.map(e => ({ ...e, kind: 'event' })),
-    ...memory.map(m => ({ ...m, kind: 'memory', date: null })),
-  ];
+  const now = new Date();
+  const isPast = (dateStr) => dateStr && new Date(dateStr) < now;
 
   return (
     <div className="block-page">
@@ -50,36 +47,31 @@ export default function HistoryBlock() {
               {timeline.length === 0 && memory.length === 0 ? (
                 <p className="empty-state">No data yet.</p>
               ) : (
-                <div className="entry-list">
+                <div className="timeline-v">
                   {timeline.map((e) => (
-                    <div key={e.id} className="entry">
-                      <div>
-                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px' }}>
-                          <span className="mono">{e.date}</span>
-                          <span className="badge">{e.type}</span>
-                          <span className={`dot dot-${e.impact_on_viability}`} />
-                        </div>
-                        <p className="entry-body">{e.description}</p>
+                    <div key={e.id} className="timeline-v-item">
+                      <div className={`timeline-v-node ${isPast(e.date) ? `timeline-v-node-${e.impact_on_viability || 'neutral'}` : 'timeline-v-node-upcoming'}`} />
+                      <div className="timeline-v-date">{e.date}</div>
+                      <div className="timeline-v-body">{e.description}</div>
+                      <div className="timeline-v-badges">
+                        <span className="badge">{e.type}</span>
+                        <span className={`badge badge-${e.impact_on_viability}`}>{e.impact_on_viability}</span>
                       </div>
                     </div>
                   ))}
 
-                  {memory.length > 0 && (
-                    <>
-                      <div style={{ borderBottom: '1px solid var(--color-gray-light)', margin: '8px 0' }} />
-                      {memory.map((m) => (
-                        <div key={m.id} className="entry" style={{ borderLeft: '3px solid var(--color-red)', paddingLeft: '16px' }}>
-                          <div>
-                            <p className="entry-quote">"{m.moment}"</p>
-                            <p className="entry-meta">
-                              {m.who_involved}{m.strategic_lesson ? ` — ${m.strategic_lesson}` : ''}
-                            </p>
-                            <span className="badge">{m.source_type}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </>
-                  )}
+                  {memory.length > 0 && memory.map((m) => (
+                    <div key={m.id} className="timeline-v-item timeline-v-memory">
+                      <div className="timeline-v-node" />
+                      <div className="timeline-v-title">"{m.moment}"</div>
+                      <div className="timeline-v-body">
+                        {m.who_involved}{m.strategic_lesson ? ` — ${m.strategic_lesson}` : ''}
+                      </div>
+                      <div className="timeline-v-badges">
+                        <span className="badge">{m.source_type}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               )}
             </section>
@@ -104,7 +96,10 @@ export default function HistoryBlock() {
                         <td><strong>{p.city}</strong><br/><span className="subtle">{p.policy_name}</span></td>
                         <td>{p.year}</td>
                         <td>{p.scope}</td>
-                        <td><span className={`dot dot-${p.sf_comparability === 'high' ? 'positive' : p.sf_comparability === 'low' ? 'negative' : 'neutral'}`} /> {p.sf_comparability}</td>
+                        <td>
+                          <span className={`dot dot-${p.sf_comparability === 'high' ? 'positive' : p.sf_comparability === 'low' ? 'negative' : 'neutral'}`} />
+                          {p.sf_comparability}
+                        </td>
                       </tr>
                     ))}
                   </tbody>

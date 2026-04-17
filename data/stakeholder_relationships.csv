@@ -1,0 +1,21 @@
+from_id,to_id,relationship_type,strength,notes
+,,advises,strong,SFMTA Director of Transportation -> SFMTA Board of Directors. Staff develops and presents fare/budget proposals for Board action.
+,,appoints,strong,Mayor of San Francisco -> SFMTA Board of Directors. Mayoral appointment power makes the Mayor an indirect governance actor.
+,,pressures,strong,Mayor of San Francisco -> SFMTA Director of Transportation. Budget expectations and public messaging flow from City Hall.
+,,pressures,strong,Board of Supervisors -> Mayor of San Francisco. Budget negotiations and override politics shape final appropriations.
+,,defers_to,moderate,Board of Supervisors Budget and Appropriations Committee -> San Francisco Controller's Office. Fiscal analysis strongly shapes committee debate.
+,,advises,strong,San Francisco Controller's Office -> Mayor of San Francisco. Controller-led deficit framing affects what is seen as credible.
+,,advises,strong,San Francisco Controller's Office -> Board of Supervisors. Working-group and fiscal materials help set the field of acceptable options.
+,,allies_with,strong,San Francisco County Transportation Authority -> SFMTA Director of Transportation. SFCTA is a key venue for revenue strategy and Muni fiscal updates.
+,,funds,strong,Metropolitan Transportation Commission -> SFMTA. MTC administers regional transit funding and the emergency bridge-loan structure.
+,,funds,moderate,Governor/CalSTA -> Metropolitan Transportation Commission. State-authorized loan is routed through MTC.
+,,advises,moderate,Transit riders and rider coalitions -> Board of Supervisors. Public testimony and district pressure can shape supervisor positions.
+,,advises,moderate,Transit riders and rider coalitions -> SFMTA Board of Directors. Rider testimony is influential during fare and service hearings.
+,,allies_with,strong,Youth advocates and school/community organizations -> Transit riders and rider coalitions. Youth frame broadens equity coalition.
+,,allies_with,strong,Senior and disability advocates -> Transit riders and rider coalitions. Access arguments become stronger when grounded in existing programs.
+,,pressures,moderate,Transit labor unions -> Mayor of San Francisco. Labor can support or complicate a transit package depending on staffing implications.
+,,pressures,moderate,Transit labor unions -> Board of Supervisors. Labor endorsements and opposition matter in city budget politics.
+,,opposes,moderate,Downtown/business groups -> Local parcel tax proposal. Commercial-property costs are a likely tension point.
+,,advises,moderate,SPUR and policy think-tank voices -> Board of Supervisors. Elite-policy endorsements can make transit revenue proposals sound more mainstream.
+,,pressures,moderate,Local media and editorial boards -> Mayor of San Francisco. Media framing affects political risk calculations.
+,,pressures,moderate,Local media and editorial boards -> Board of Supervisors. Editorial narratives can amplify fiscal skepticism or access framing.
